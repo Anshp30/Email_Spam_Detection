@@ -2,7 +2,14 @@ import streamlit as st
 import pickle
 
 # Load model & vectorizer
-model = pickle.load(open("spam_model.pkl", "rb"))
+import pickle
+import os
+
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "spam_model.pkl")
+
+with open(MODEL_PATH, "rb") as file:
+    model = pickle.load(file)
+
 vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
 st.set_page_config(page_title="Email Spam Detection", layout="centered")
