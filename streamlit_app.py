@@ -1,5 +1,9 @@
 import streamlit as st
 import pickle
+import os
+import streamlit as st
+
+st.write("Files:", os.listdir())
 
 # Load model & vectorizer
 import pickle
