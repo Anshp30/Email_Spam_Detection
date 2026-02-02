@@ -1,11 +1,9 @@
 Email Spam Detection System
--------------------------------------------------------------------------------------
 Overview
--------------------------------------------------------------------------------------
-This project implements an Email Spam Detection System using Machine Learning to classify messages as Spam or Not Spam. The system leverages Natural Language Processing (NLP) techniques and a trained classification model, deployed through an interactive Streamlit web application for real-time prediction.
+
+This project implements an Email Spam Detection System using Machine Learning to classify messages as Spam or Not Spam. The system leverages Natural Language Processing (NLP) techniques and a trained Naive Bayes classifier, deployed through an interactive Streamlit web application for real-time prediction.
 
 Features
--------------------------------------------------------------------------------------
 
 🎯 Machine Learning Powered: Uses Naive Bayes for accurate text classification
 ⚡ Real-time Prediction: Instantly classifies messages as spam or legitimate
@@ -13,59 +11,81 @@ Features
 🖥️ Interactive UI: Simple and user-friendly Streamlit interface
 📊 High Accuracy: Achieves ~95% accuracy on benchmark dataset
 💾 Model Persistence: Pre-trained model and vectorizer stored as pickle files
--------------------------------------------------------------------------------------
+
 Project Structure
-├── src/
-│   ├── models/
-│   │   └── credit_model.py          # Core ML model implementation
-│   ├── data/
-│   ├── utils/
-│   └── dashboard/
-├── data/
-│   └── credit_risk.db               # SQLite database
-├── models_saved/
-│   └── credit_risk_model.pkl        # Trained model
-├── streamlit_app.py                 # Main dashboard application
+├── dataset/
+│   └── spam.csv                     # SMS Spam Collection dataset
+├── spam_model.pkl                   # Trained Naive Bayes model
+├── vectorizer.pkl                   # TF-IDF vectorizer
+├── streamlit_app.py                 # Streamlit web application
 ├── requirements.txt                 # Python dependencies
-├── credit_risk_data.csv            # Sample dataset
-└── README.md                       # This file
----------------------------------------------------------------------------------
+└── README.md                        # This file
+
 Technical Implementation
---------------------------------------------------------------------------------------
 Machine Learning Model
 
-Algorithm: Logistic Regression (primary), with support for Random Forest and Gradient Boosting
-Features: 25+ engineered features including income ratios, credit utilization, and risk scores
-Performance: Achieves 89%+ accuracy in default prediction
-Preprocessing: Handles missing values, feature scaling, and categorical encoding
+Algorithm: Multinomial Naive Bayes
+
+Text Representation: TF-IDF Vectorization
+
+Task: Binary classification (Spam / Not Spam)
+
+Performance: Achieves approximately 95% accuracy
+
+Preprocessing:
+
+Text normalization
+
+Stopword removal
+
+Feature extraction using TF-IDF
 
 Data Pipeline
 
-Data Source: Synthetic dataset with 200K+ loan applications
-Feature Engineering: Creates derived features like debt-to-income ratio, credit utilization
-Data Storage: SQLite database for persistent storage
-Real-time Processing: Instant predictions for new applications
+Data Source: SMS Spam Collection Dataset
 
-Dashboard Features
+Dataset Size: 5,500+ labeled messages
 
-Home Page: System overview and feature highlights
-Risk Assessment: Interactive form for new loan applications
-Analytics Dashboard: Comprehensive visualizations and metrics
-Application History: Historical data with filtering and export capabilities
+Labels:
+
+spam – Unwanted or fraudulent messages
+
+ham – Legitimate messages
+
+Encoding Handling: Latin-1 encoding support
+
+Data Cleaning: Removal of unnecessary columns and normalization of column names
+
+Application Features
+
+Home Page: Project overview and instructions
+
+Spam Detection Interface: Text input area for message entry
+
+Prediction Engine: Real-time classification
+
+Result Display:
+
+❌ Spam Message
+
+✅ Not Spam Message
 
 Installation & Setup
-1.Clone or download the project files
-
-2.Install dependencies:
-
+1. Clone or Download the Project Files
+2. Install Dependencies
 pip install -r requirements.txt
 
-3.Run the Streamlit application:
-
+3. Run the Streamlit Application
 streamlit run streamlit_app.py
-4.Access the dashboard: Open your browser to http://localhost:8501
+
+4. Access the Application
+
+Open your browser and navigate to:
+
+http://localhost:8501
 
 🚀 Live Demo
+
 https://emailspamdetectionsystem.streamlit.app/
 
 Usage Guide
@@ -75,7 +95,7 @@ Enter email or message text into the input box
 
 Click “Check Spam”
 
-View instant prediction result
+View instant classification result
 
 2. Example Inputs
 
@@ -105,15 +125,15 @@ Note: Performance may vary with real-world email data.
 Key Concepts Explained
 Text Classification
 
-The model converts raw text into numerical features using TF-IDF, which measures the importance of words relative to the dataset.
+The system converts raw text into numerical features using TF-IDF (Term Frequency–Inverse Document Frequency), which reflects the importance of words relative to the dataset.
 
 Naive Bayes Algorithm
 
-Naive Bayes applies probabilistic classification and performs exceptionally well for text-based problems due to word independence assumptions.
+Naive Bayes is a probabilistic classification algorithm that performs exceptionally well for text-based problems due to its assumption of word independence.
 
 Spam Classification Logic
 
-Spam (1): Promotional, fraudulent, or unwanted content
+Spam (1): Promotional, fraudulent, or unwanted messages
 
 Not Spam (0): Genuine and meaningful messages
 
@@ -151,4 +171,4 @@ This project is developed for educational and academic purposes.
 
 Contact
 
-For queries or support, please refer to the code comments and documentation provided within the repository.
+For questions or support, please refer to the code comments and documentation provided within the repository.
