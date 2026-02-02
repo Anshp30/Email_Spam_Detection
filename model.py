@@ -6,8 +6,11 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-nltk.download('stopwords')
-from nltk.corpus import stopwords
+try:
+    from nltk.corpus import stopwords
+except LookupError:
+    nltk.download('stopwords')
+    from nltk.corpus import stopwords
 
 # Load dataset
 data = pd.read_csv("dataset/spam.csv", encoding="latin-1")
@@ -20,7 +23,7 @@ data['label'] = data['label'].map({'ham': 0, 'spam': 1})
 
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(
-    data['me    sage'], data['label'], test_size=0.2, random_state=42
+    data['message'], data['label'], test_size=0.2, random_state=42
 )
 
 # Vectorization
