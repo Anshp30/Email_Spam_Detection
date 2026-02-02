@@ -1,30 +1,31 @@
 import streamlit as st
 import pickle
 import os
-import streamlit as st
 
-st.write("Files:", os.listdir())
+# -------------------------------
+# Load model and vectorizer safely
+# -------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Load model & vectorizer
-import pickle
-import os
+MODEL_PATH = os.path.join(BASE_DIR, "spam_model.pkl")
+VECTORIZER_PATH = os.path.join(BASE_DIR, "vectorizer.pkl")
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "spam_model.pkl")
+with open(MODEL_PATH, "rb") as f:
+    model = pickle.load(f)
 
-with open(MODEL_PATH, "rb") as file:
-    model = pickle.load(file)
+with open(VECTORIZER_PATH, "rb") as f:
+    vectorizer = pickle.load(f)
 
-vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
-
+# -------------------------------
+# Streamlit UI
+# -------------------------------
 st.set_page_config(page_title="Email Spam Detection", layout="centered")
 
 st.title("📧 Email Spam Detection System")
 st.write("Check whether an email message is **Spam or Not Spam**")
 
-# Input box
 message = st.text_area("Enter email text here:")
 
-# Predict button
 if st.button("Check Spam"):
     if message.strip() == "":
         st.warning("Please enter a message")
